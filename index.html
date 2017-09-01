@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>fcc-wiki-search</title>
+  <link href="https://fonts.googleapis.com/css?family=Cabin|Source+Sans+Pro" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  
+      <link rel="stylesheet" href="css/style.css">
+
+  
+</head>
+
+<body>
+  <div id="app">
+  <header>
+    <div id="inner-header">
+      <h1>InstaWiki</h1>
+      <div><p>Built by <a target="_blank" href="http://jacobschmocker.com">Jacob Schmocker.</a></p> <p>See this project on <a target="_blank" href="">Github <i class="fa fa-github" aria-hidden="true"></i></a></p></div>
+      <input v-on:keydown="failure = false" v-model="query" placeholder="Type to search...">
+    </div>
+  </header>
+  <article>
+    <div class="spinner" id="loading" v-show="loading">
+      <div class="double-bounce1"></div>
+      <div class="double-bounce2"></div>
+    </div>
+    <div id="instructions" v-show="query === ''">
+      <p>Type in the search box to auto-populate results <i class="fa fa-search" aria-hidden="true"></i></p>
+      <p> - or - </p>
+      <a href="https://en.wikipedia.org/wiki/Special:Random" target="_blank">Random Article</a>
+    </div>
+    <p id="failure" v-show="failure && !loading && query !== '' ">Could not get results for '{{ query }}'</p>
+    <search-result
+      v-show="!failure && !loading && query !== ''"
+      v-for="item in apiResults"
+      :result="item"
+      ></search-result>
+  </article>
+</div>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js'></script>
+<script src='https://use.fontawesome.com/11889deceb.js'></script>
+
+    <script src="js/index.js"></script>
+
+</body>
+</html>
